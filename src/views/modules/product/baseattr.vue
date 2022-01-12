@@ -1,7 +1,7 @@
 <template>
   <el-row :gutter="20">
     <el-col :span="6">
-      <category @tree-node-click="treenodeclick"></category>
+      <category @treeNodeCli="treenodeclick"></category>
     </el-col>
     <el-col :span="18">
       <div class="mod-config">
@@ -134,7 +134,8 @@ export default {
   },
   data() {
     return {
-      catId: 0,
+      catelogId:0,
+/*      catId: 0,*/
       type: 1,
       dataForm: {
         key: ""
@@ -155,7 +156,7 @@ export default {
     //感知树节点被点击
     treenodeclick(data, node, component) {
       if (node.level == 3) {
-        this.catId = data.catId;
+        this.catelogId = data.catId;
         this.getDataList(); //重新查询
       }
     },
@@ -167,8 +168,9 @@ export default {
     getDataList() {
       this.dataListLoading = true;
       let type = this.attrtype == 0 ? "sale" : "base";
+/*      url: this.$http.adornUrl(`/product/attr/${type}/list/${this.catId}`),*/
       this.$http({
-        url: this.$http.adornUrl(`/product/attr/${type}/list/${this.catId}`),
+        url: this.$http.adornUrl(`/product/attr/${type}/list/${this.catelogId}`),
         method: "get",
         params: this.$http.adornParams({
           page: this.pageIndex,
