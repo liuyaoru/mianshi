@@ -4,6 +4,8 @@ import router from '@/router'                 // api: https://github.com/vuejs/v
 import store from '@/store'                   // api: https://github.com/vuejs/vuex
 import VueCookie from 'vue-cookie'            // api: https://github.com/alfhen/vue-cookie
 import '@/element-ui'                         // api: https://github.com/ElemeFE/element
+import iView from "iview";
+import ElementUI from 'element-ui';
 import '@/icons'                              // api: http://www.iconfont.cn/
 import '@/element-ui-theme'
 import '@/assets/scss/index.scss'
@@ -12,6 +14,8 @@ import { isAuth } from '@/utils'
 import cloneDeep from 'lodash/cloneDeep'
 
 Vue.use(VueCookie)
+Vue.use(ElementUI)
+Vue.use(iView)
 Vue.config.productionTip = false
 
 // 非生产环境, 适配mockjs模拟数据                 // api: https://github.com/nuysoft/Mock

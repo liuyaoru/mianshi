@@ -42,6 +42,9 @@
         <el-input v-model="dataForm.icon" placeholder="属性图标"></el-input>
       </el-form-item>
       <el-form-item label="所属分类" prop="catelogId">
+<!--        <el-cascader  v-model="dataForm.catelogPath"
+                         :options="categorys"
+                         :props="props"></el-cascader>-->
         <category-cascader  :catelogPath.sync="catelogPath"></category-cascader>
       </el-form-item>
       <el-form-item label="所属分组" prop="attrGroupId" v-if="type == 1">
@@ -61,7 +64,7 @@
           inactive-color="#ff4949"
           :active-value="1"
           :inactive-value="0"
-        ></el-switch>
+        ></el-switch>[
       </el-form-item>
       <el-form-item label="快速展示" prop="showDesc" v-if="type == 1">
         <el-switch
@@ -94,7 +97,14 @@ import CategoryCascader from "../../common/category-cascader";
 export default {
   data() {
     return {
+      props:{
+        value:"catId",
+        label:"name",
+        children:"children"
+
+      },
       visible: false,
+      categorys: [],
       dataForm: {
         attrId: 0,
         attrName: "",
@@ -168,8 +178,12 @@ export default {
       default: 1
     }
   },
+  created() {
+    this.getCategorys()
+  },
   watch: {
-    catelogPath(path) {
+
+    catelogPaths(path) {
       //监听到路径变化需要查出这个三级分类的分组信息
       console.log("路径变了", path);
       this.attrGroups = [];
@@ -199,6 +213,15 @@ export default {
   },
   components: { CategoryCascader },
   methods: {
+    getCategorys(){
+      this.$http({
+        url: this.$http.adornUrl("/product/category/list/tree"),
+        method: "get"
+      }).then(({ data }) => {
+        console.log(data.list)
+        this.categorys = data.list;
+      });
+    },
     init(id) {
       this.dataForm.attrId = id || 0;
       this.dataForm.attrType = this.type;
@@ -221,6 +244,7 @@ export default {
               this.dataForm.valueSelect = data.attr.valueSelect.split(";");
               this.dataForm.attrType = data.attr.attrType;
               this.dataForm.enable = data.attr.enable;
+ /*             this.dataForm.catelogPath=data.attr.catelogPath;*/
               this.dataForm.catelogId = data.attr.catelogPath;
               this.dataForm.showDesc = data.attr.showDesc;
               //attrGroupId
