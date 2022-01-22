@@ -24,14 +24,6 @@
             </el-badge>
           </template>
         </el-menu-item>
-        <el-menu-item index="2">
-          <el-badge value="hot">
-            <a href="https://www.renren.io/" target="_blank">官方社区</a>
-          </el-badge>
-        </el-menu-item>
-        <el-submenu index="3">
-          <template slot="title">Git源码</template>
-        </el-submenu>
         <el-menu-item class="site-navbar__avatar" index="3">
           <el-dropdown :show-timeout="0" placement="bottom">
             <span class="el-dropdown-link">

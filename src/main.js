@@ -7,15 +7,19 @@ import '@/element-ui'                         // api: https://github.com/ElemeFE
 import iView from "iview";
 import ElementUI from 'element-ui';
 import '@/icons'                              // api: http://www.iconfont.cn/
+import  less from 'less'
 import '@/element-ui-theme'
 import '@/assets/scss/index.scss'
 import httpRequest from '@/utils/httpRequest' // api: https://github.com/axios/axios
 import { isAuth } from '@/utils'
 import cloneDeep from 'lodash/cloneDeep'
-
+import ViewUI from 'view-design';
+import 'view-design/dist/styles/iview.css';
+Vue.use(ViewUI)
+Vue.use(less)
 Vue.use(VueCookie)
 Vue.use(ElementUI)
-Vue.use(iView)
+// Vue.use(iView)
 Vue.config.productionTip = false
 
 // 非生产环境, 适配mockjs模拟数据                 // api: https://github.com/nuysoft/Mock
