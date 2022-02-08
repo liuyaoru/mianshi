@@ -44,21 +44,39 @@ export default {
         children: "children"
       },
       categorys: [],
-      paths: this.catelogPath
+      paths:[],
+/*      paths: this.catelogPath*/
     };
   },
   watch:{
+
     catelogPath(v){
       this.paths = this.catelogPath;
     },
-    paths(v){
-      this.$emit("update:catelogPath",v);
-      //还可以使用pubsub-js进行传值
-      this.PubSub.publish("catPath",v);
+    paths(v)
+    {
+      this.getPaths();
     }
-  },
+
+    },
+/*    paths(v){
+      this.$emit("updateCateLogPath",v)
+     this.$emit("update:catelogPath",v);*!/
+      //还可以使用pubsub-js进行传值
+      this.PubSub.publish("catPath",v);*!/
+    }
+  },*/
   //方法集合
   methods: {
+    handleChange()
+    {
+
+      this.getPaths();
+
+    },
+    getPaths(){
+      this.$emit("updatepath",this.paths)
+    },
     getCategorys() {
       this.$http({
         url: this.$http.adornUrl("/product/category/list/tree"),

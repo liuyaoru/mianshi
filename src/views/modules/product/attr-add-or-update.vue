@@ -45,7 +45,8 @@
 <!--        <el-cascader  v-model="dataForm.catelogPath"
                          :options="categorys"
                          :props="props"></el-cascader>-->
-        <category-cascader  :catelogPath.sync="catelogPath"></category-cascader>
+<!--        <category-cascader :catelog-path="getCatLogPath":catelogPath.sync="catelogPath"></category-cascader>-->
+      <category-cascader  @updatepath="getPath"></category-cascader>
       </el-form-item>
       <el-form-item label="所属分组" prop="attrGroupId" v-if="type == 1">
         <el-select ref="groupSelect" v-model="dataForm.attrGroupId" placeholder="请选择">
@@ -64,7 +65,7 @@
           inactive-color="#ff4949"
           :active-value="1"
           :inactive-value="0"
-        ></el-switch>[
+        ></el-switch>
       </el-form-item>
       <el-form-item label="快速展示" prop="showDesc" v-if="type == 1">
         <el-switch
@@ -181,8 +182,10 @@ export default {
   created() {
     this.getCategorys()
   },
+
   watch: {
 
+    /**
     catelogPaths(path) {
       //监听到路径变化需要查出这个三级分类的分组信息
       console.log("路径变了", path);
@@ -210,9 +213,15 @@ export default {
         this.dataForm.catelogId = "";
       }
     }
+    **/
   },
   components: { CategoryCascader },
   methods: {
+    getPath(cateLogPath)
+    {
+      this.dataForm.catelogId=cateLogPath[cateLogPath.length-1];
+
+    },
     getCategorys(){
       this.$http({
         url: this.$http.adornUrl("/product/category/list/tree"),

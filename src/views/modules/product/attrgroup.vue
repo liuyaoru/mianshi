@@ -111,7 +111,7 @@ export default {
         dataListLoading: false,
         dataListSelections: [],
         addOrUpdateVisible: false,
-        relationVisible: false
+        relationVisible:true
       };
   },
   methods: {
@@ -123,7 +123,7 @@ export default {
     relationHandle(groupId) {
       this.relationVisible = true;
       this.$nextTick(() => {
-        /*this.$refs.relationUpdate.init(groupId);*/
+        this.$refs.relationUpdate.init(groupId);
       });
     },
     deleteHandle(id)
@@ -164,7 +164,7 @@ export default {
     },
     addOrUpdateHandle(id)
     {
-
+      this.addOrUpdateVisible = false;
       this.addOrUpdateVisible = true;
       this.$nextTick(() => {
       /*  this.$refs.addOrUpdate.init(id);*/
