@@ -4,7 +4,7 @@
       <el-option
         v-for="item in brands"
         :key="item.brandId"
-        :label="item.brandName"
+        :label="item.name"
         :value="item.brandId"
       ></el-option>
     </el-select>
@@ -18,7 +18,7 @@
 export default {
   //import引入的组件需要注入到对象中才能使用
   components: {},
-  props: {},
+  props: ["cateLogId"],
   data() {
     //这里存放数据
     return {
@@ -37,39 +37,49 @@ export default {
   computed: {},
   //监控data中的数据变化
   watch: {
+    cateLogId: function (oldCateLogId, newCateLogId) {
+      this.getCatBrands(newCateLogId)
+    },
     brandId(val) {
 
     }
   },
   //方法集合
   methods: {
-    getCatBrands() {
+    getCatBrands(newCateLogId) {
       this.$http({
         url: this.$http.adornUrl("/product/categorybrandrelation/brands/list"),
         method: "get",
         params: this.$http.adornParams({
-          catId: this.catId
+          catId: newCateLogId
         })
-      }).then(({ data }) => {
+      }).then(({data}) => {
         this.brands = data.data;
       });
     }
   },
   //生命周期 - 创建完成（可以访问当前this实例）
-  created() {},
+  created() {
+  },
   //生命周期 - 挂载完成（可以访问DOM元素）
   mounted() {
     //监听三级分类消息的变化
   },
-  beforeCreate() {}, //生命周期 - 创建之前
-  beforeMount() {}, //生命周期 - 挂载之前
-  beforeUpdate() {}, //生命周期 - 更新之前
-  updated() {}, //生命周期 - 更新之后
+  beforeCreate() {
+  }, //生命周期 - 创建之前
+  beforeMount() {
+  }, //生命周期 - 挂载之前
+  beforeUpdate() {
+  }, //生命周期 - 更新之前
+  updated() {
+  }, //生命周期 - 更新之后
   beforeDestroy() {
 
   }, //生命周期 - 销毁之前
-  destroyed() {}, //生命周期 - 销毁完成
-  activated() {} //如果页面有keep-alive缓存功能，这个函数会触发
+  destroyed() {
+  }, //生命周期 - 销毁完成
+  activated() {
+  } //如果页面有keep-alive缓存功能，这个函数会触发
 };
 </script>
 <style>

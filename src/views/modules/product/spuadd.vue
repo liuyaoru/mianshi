@@ -20,10 +20,10 @@
               <el-input v-model="spu.spuDescription"></el-input>
             </el-form-item>
             <el-form-item label="选择分类" prop="catalogId">
-              <category-cascader></category-cascader>
+              <category-cascader @updatepath="getcateLogId($event)"></category-cascader>
             </el-form-item>
             <el-form-item label="选择品牌" prop="brandId">
-              <brand-select></brand-select>
+              <brand-select :cateLogId="cateLogId"></brand-select>
             </el-form-item>
             <el-form-item label="商品重量(Kg)" prop="weight">
               <el-input-number v-model.number="spu.weight" :min="0" :precision="3" :step="0.1"></el-input-number>
@@ -355,6 +355,7 @@ export default {
   props: {},
   data() {
     return {
+      cateLogId:0,
       catPathSub: null,
       brandIdSub: null,
       uploadDialogVisible: false,
@@ -425,6 +426,7 @@ export default {
   computed: {},
   //监控data中的数据变化
   watch: {
+
     uploadImages(val) {
       //扩展每个skus里面的imgs选项
       let imgArr = Array.from(new Set(this.spu.images.concat(val)));
@@ -446,6 +448,10 @@ export default {
   },
   //方法集合
   methods: {
+    getcateLogId(value)
+    {
+      this.cateLogId=value[value.length-1];
+    },
     addAgian() {
       this.step = 0;
       this.resetSpuData();
