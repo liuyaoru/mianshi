@@ -24,10 +24,10 @@ export default {
     return {
       catId: 0,
       brands: [
-        {
+       /* {
           label: "a",
           value: 1
-        }
+        }*/
       ],
       brandId: "",
       subscribe: null
@@ -38,6 +38,7 @@ export default {
   //监控data中的数据变化
   watch: {
     cateLogId: function (oldCateLogId, newCateLogId) {
+      alert(newCateLogId);
       this.getCatBrands(newCateLogId)
     },
     brandId(val) {
