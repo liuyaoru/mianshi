@@ -22,8 +22,9 @@
             <el-form-item label="选择分类" prop="catalogId">
               <category-cascader @updatepath="getcateLogId($event)"></category-cascader>
             </el-form-item>
+<!--            <brand-select :cateLogId="cateLogId"></brand-select>-->
             <el-form-item label="选择品牌" prop="brandId">
-              <brand-select :cateLogId="cateLogId"></brand-select>
+              <brand-select :cateLogId="spu.catalogId"></brand-select>
             </el-form-item>
             <el-form-item label="商品重量(Kg)" prop="weight">
               <el-input-number v-model.number="spu.weight" :min="0" :precision="3" :step="0.1"></el-input-number>
@@ -66,7 +67,7 @@
           <el-tabs tab-position="left" style="width:98%">
             <el-tab-pane
               :label="group.attrGroupName"
-              v-for="(group,gidx) in dataResp.attrGroups"
+              v-for="(group,gidx) in dataResp"
               :key="group.attrGroupId"
             >
               <!-- 遍历属性,每个tab-pane对应一个表单，每个属性是一个表单项  spu.baseAttrs[0] = [{attrId:xx,val:}]-->
@@ -450,7 +451,9 @@ export default {
   methods: {
     getcateLogId(value)
     {
+
       this.cateLogId=value[value.length-1];
+      this.spu.catalogId=this.cateLogId;
     },
     addAgian() {
       this.step = 0;
@@ -672,6 +675,13 @@ export default {
         });
       }
     },
+    /**
+     *
+     *
+     *      url: this.$http.adornUrl(
+     *             `/product/attrgroup/${this.spu.catalogId}/withattr`
+     *           ),
+     */
     showBaseAttrs() {
       if (!this.dataResp.steped[0]) {
         this.$http({
@@ -681,18 +691,24 @@ export default {
           method: "get",
           params: this.$http.adornParams({})
         }).then(({ data }) => {
+          debugger
           //先对表单的baseAttrs进行初始化
-          data.data.forEach(item => {
+  /*        data.data.forEach(item => {
             let attrArray = [];
-            item.attrs.forEach(attr => {
-              attrArray.push({
-                attrId: attr.attrId,
-                attrValues: "",
-                showDesc: attr.showDesc
+            if(item.attrs!=null)
+            {
+              item.attrs.forEach(attr => {
+                attrArray.push({
+                  attrId: attr.attrId,
+                  attrValues: "",
+                  showDesc: attr.showDesc
+                });
               });
-            });
-            this.dataResp.baseAttrs.push(attrArray);
+              this.dataResp.baseAttrs.push(attrArray);
+            }
           });
+          /
+   */
           this.dataResp.steped[0] = 0;
           this.dataResp.attrGroups = data.data;
         });

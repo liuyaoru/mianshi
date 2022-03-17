@@ -38,8 +38,8 @@ export default {
   //监控data中的数据变化
   watch: {
     cateLogId: function (oldCateLogId, newCateLogId) {
-      alert(newCateLogId);
-      this.getCatBrands(newCateLogId)
+   /*   this.getCatBrands(newCateLogId)*/
+      this.getCatBrands(oldCateLogId)
     },
     brandId(val) {
 

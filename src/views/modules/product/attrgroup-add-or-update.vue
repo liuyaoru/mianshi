@@ -102,7 +102,7 @@ export default {
         this.categorys = data.list;
       });
     },
-   /* init(id) {
+    init(id) {
       this.dataForm.attrGroupId = id || 0;
       this.visible = true;
       this.$nextTick(() => {
@@ -127,7 +127,7 @@ export default {
           });
         }
       });
-    },*/
+    },
     // 表单提交
     dataFormSubmit() {
       this.$refs["dataForm"].validate(valid => {
@@ -139,7 +139,7 @@ export default {
             ),
             method: "post",
             data: this.$http.adornData({
-          /*    attrGroupId: this.dataForm.attrGroupId || undefined,*/
+              attrGroupId: this.dataForm.attrGroupId || undefined,
               attrGroupName: this.dataForm.attrGroupName,
               sort: this.dataForm.sort,
               descript: this.dataForm.descript,
